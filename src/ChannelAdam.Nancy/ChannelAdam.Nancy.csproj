@@ -1,24 +1,46 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net5.0;netstandard2.0;</TargetFrameworks>
     <Version>0.0.0</Version>
     <Authors>Adam Craven</Authors>
-    <PackageReleaseNotes>2.0.0 - Target .NET Standard 2.0
-1.0.0 - Initial release.</PackageReleaseNotes>
-    <PackageTags>Nancy, Request, Response, Helper, Extensions</PackageTags>
-    <RepositoryType>git</RepositoryType>
-    <Description>A .NET Standard 2 library with helpers and extensions for the Nancy web framework.</Description>
-    <Copyright>Copyright 2016-2018 Adam Craven</Copyright>
-    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
-    <PackageIconUrl>https://devzone.channeladam.com/img/channeladam/channeladam-logo.png</PackageIconUrl>
+    <Company>Adam Craven</Company>
+    <Product>ChannelAdam.Nancy</Product>
+    <Description>A .NET library with helpers and extensions for the Nancy web framework.</Description>
+    <Copyright>Copyright 2016-2021 Adam Craven</Copyright>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/channeladam/ChannelAdam.Nancy</PackageProjectUrl>
     <RepositoryUrl>https://github.com/channeladam/ChannelAdam.Nancy</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIconUrl>https://devzone.channeladam.com/img/channeladam/channeladam-logo.png</PackageIconUrl>
+    <PackageTags>Nancy, Request, Response, Helper, Extensions</PackageTags>
+    <PackageReleaseNotes>
+3.0.0 - Multitarget .NET Standard 2.0 and .NET 5.0, enabled nullable reference types, update to Nancy v2.0.0.
+2.0.0 - Target .NET Standard 2.0.
+1.0.0 - Initial release.
+    </PackageReleaseNotes>
+    <IsPackable>true</IsPackable>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <IncludeSource>true</IncludeSource>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" $(Nullable) != 'enable' ">
+    <NoWarn>$(NoWarn);CS8632</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ChannelAdam.Reflection" Version="2.0.0" />
-    <PackageReference Include="Nancy" Version="1.4.4" />
+    <PackageReference Include="ChannelAdam.Reflection" Version="3.0.0"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Nancy" Version="2.0.0"/>
   </ItemGroup>
-
+  
 </Project>

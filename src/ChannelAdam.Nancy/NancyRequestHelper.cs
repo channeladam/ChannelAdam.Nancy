@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="NancyRequestHelper.cs">
-//     Copyright (c) 2016-2018 Adam Craven. All rights reserved.
+//     Copyright (c) 2016-2021 Adam Craven. All rights reserved.
 // </copyright>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,7 +34,7 @@ namespace ChannelAdam.Nancy
             }
 
             string result = string.Empty;
-            MemoryStream ms = null;
+            MemoryStream? ms = null;
 
             if (request.Body.Position != 0)
             {
@@ -45,11 +45,9 @@ namespace ChannelAdam.Nancy
             {
                 ms = ReadIntoMemoryStream(request);
 
-                using (var reader = new StreamReader(ms))
-                {
-                    ms = null;
-                    result = reader.ReadToEnd();
-                }
+                using var reader = new StreamReader(ms);
+                ms = null;
+                result = reader.ReadToEnd();
             }
             finally
             {
@@ -66,7 +64,7 @@ namespace ChannelAdam.Nancy
         private static MemoryStream ReadIntoMemoryStream(Request request)
         {
             int currentByte;
-            MemoryStream ms = new MemoryStream();
+            MemoryStream ms = new();
 
             while ((currentByte = request.Body.ReadByte()) != -1)
             {
